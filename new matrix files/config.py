@@ -1,0 +1,1 @@
+TIME_COLOR = 0x8c8c8c
