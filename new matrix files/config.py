@@ -1,1 +1,24 @@
-TIME_COLOR = 0x8c8c8c
+config = {
+	'am_pm':True,
+	'time_refresh_length_sec':3600,
+	'sleep_timer':False,
+	'sleep_time_start':23,
+	'sleep_time_stop':5,
+	'small_font_path':'/fonts/Arial-12.bdf',
+	'medium_font_path':'/fonts/Arial-14.bdf',
+	'main_color':0x480080,
+	'time_color':0x8c8c8c,
+	'temp_color':0x805500,
+	'description_color':0x006a80,
+	'loading_splash_path':'/splashes/loading.bmp',
+	'sleep_splash_path':'/splashes/sleep.bmp',
+	'weather_source':'http://api.openweathermap.org/data/2.5/weather',
+	'weather_location':'Washington, US',
+	'weather_units':'imperial',
+	'weather_refresh_length_sec': 600,
+	'weather_icon_spritesheet_path':'/icons/weather-icons.bmp',
+	'weather_icon_width':16,
+	'weather_icon_height':16,
+	'weather_icon_map':('01', '02', '03', '04', '09', '10', '11', '13', '50'),
+
+}
