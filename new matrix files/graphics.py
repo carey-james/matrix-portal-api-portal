@@ -60,19 +60,19 @@ class Graphics(displayio.Group):
 
 		# Setup the fonts
 		self.small_font = bitmap_font.load_font(cwd + config['small_font_path'])
-        self.medium_font = bitmap_font.load_font(cwd + config['medium_font_path'])
-        glyphs = b"0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ-,.: "
-        self.small_font.load_glyphs(glyphs)
-        self.medium_font.load_glyphs(glyphs)
-        self.medium_font.load_glyphs(("°",))  # non-ascii character
-
-        # Setup the time text
-        self.am_pm = config['am_pm']
-        self.time_text = Label(self.medium_font)
-        self.time_text.x = 16
-        self.time_text.y = 7
-        self.time_text.color = config['time_color']
-        self._text_group.append(self.time_text)
+	        self.medium_font = bitmap_font.load_font(cwd + config['medium_font_path'])
+	        glyphs = b"0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ-,.: "
+	        self.small_font.load_glyphs(glyphs)
+	        self.medium_font.load_glyphs(glyphs)
+	        self.medium_font.load_glyphs(("°",))  # non-ascii character
+	
+	        # Setup the time text
+	        self.am_pm = config['am_pm']
+	        self.time_text = Label(self.medium_font)
+	        self.time_text.x = 16
+	        self.time_text.y = 7
+	        self.time_text.color = config['time_color']
+	        self._text_group.append(self.time_text)
 
     # Used to update the Time display, unless it's sleep time
     def update_time(self, time, sleep_time):
