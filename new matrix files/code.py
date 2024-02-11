@@ -44,9 +44,23 @@ while True:
 	if (not weather_refresh) or ((time.monotonic() - weather_refresh) > config['weather_refresh_length_sec']):
 		try:
 			if not sleep_time_tool(time.localtime()):
-				weather_response = network.fetch_data(f'{config['http://api.openweathermap.org/data/2.5/weather']}?q={config['weather_location']}&units={config['weather_units']}&appid={secrets['openwather_token']}')
+				weather_response = network.fetch_data(f'{config['weather_source']}?q={config['weather_location']}&units={config['weather_units']}&appid={secrets['openweather_token']}', json_path=([]))
 				gfx.set_weather_icon(weather_response['weather'][0]['icon'])
 				weather_refresh = time.monotonic()
 		except RuntimeError as e:
 			print(f'An error occured with the weather! Retrying! {e}')
 			continue
+
+{'timezone': -28800, 
+'sys': {'type': 2, 'sunrise': 1707664481, 'country': 'US', 'id': 2019804, 'sunset': 1707700677}, 
+'base': 'stations', 
+'main': {'pressure': 1018, 'feels_like': 38.41, 'temp_max': 42.33, 'temp': 38.41, 'temp_min': 36.48, 'humidity': 73, 'sea_level': 1018, 'grnd_level': 959}, 
+'visibility': 39, 
+'id': 5815135, 
+'clouds': {'all': 100}, 
+'coord': {'lon': -120.501, 'lat': 47.5001}, 
+'name': 'Washington', 
+'cod': 200, 
+'weather': [{'id': 804, 'icon': '04d', 'main': 'Clouds', 'description': 'overcast clouds'}], 
+'dt': 1707694085, 
+'wind': {'gust': 2.68, 'speed': 2.95, 'deg': 80}}
