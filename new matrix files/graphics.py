@@ -68,7 +68,7 @@ class Graphics(displayio.Group):
 
 		# Setup the time text
 		self.am_pm = config['am_pm']
-		self.time_text = Label(self.medium_font)
+		self.time_text = Label(self.small_font)
 		self.time_text.x = 16
 		self.time_text.y = 7
 		self.time_text.color = config['time_color']
