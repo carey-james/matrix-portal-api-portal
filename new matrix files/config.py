@@ -6,6 +6,7 @@ config = {
 	'sleep_time_stop':5,
 	'small_font_path':'/fonts/Arial-12.bdf',
 	'medium_font_path':'/fonts/Arial-14.bdf',
+	'creep_font_path':'/fonts/creep.bdf',
 	'main_color':0x480080,
 	'time_color':0x8c8c8c,
 	'temp_color':0x805500,

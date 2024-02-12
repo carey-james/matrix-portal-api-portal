@@ -13,12 +13,12 @@ from config import config
 # --- Matrix Setup ---
 matrix = Matrix()
 
+# --- Display Setup ---
+gfx = graphics.Graphics(matrix.display)
+
 # --- Wifi Setup ---
 # Network def
 network = Network(status_neopixel=board.NEOPIXEL, debug=True)
-
-# --- Display Setup ---
-gfx = graphics.Graphics(matrix.display)
 
 # --- Refresh Setup ---
 localtime_refresh = None

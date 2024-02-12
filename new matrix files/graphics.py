@@ -28,6 +28,7 @@ class Graphics(displayio.Group):
 			pixel_shader=loading_background.pixel_shader
 			)
 		splash.append(loading_sprite)
+		display.show(splash)
 
 		# Setup the display groups
 		self.root_group = displayio.Group()
@@ -61,14 +62,16 @@ class Graphics(displayio.Group):
 		# Setup the fonts
 		self.small_font = bitmap_font.load_font(cwd + config['small_font_path'])
 		self.medium_font = bitmap_font.load_font(cwd + config['medium_font_path'])
+		self.creep_font = bitmap_font.load_font(cwd + config['creep_font_path'])
 		glyphs = b"0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ-,.: "
 		self.small_font.load_glyphs(glyphs)
 		self.medium_font.load_glyphs(glyphs)
+		self.creep_font.load_glyphs(glyphs)
 		self.medium_font.load_glyphs(("°",))  # non-ascii character
 
 		# Setup the time text
 		self.am_pm = config['am_pm']
-		self.time_text = Label(self.small_font)
+		self.time_text = Label(self.creep_font)
 		self.time_text.x = 16
 		self.time_text.y = 7
 		self.time_text.color = config['time_color']
