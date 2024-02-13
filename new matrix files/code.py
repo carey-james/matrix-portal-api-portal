@@ -83,11 +83,11 @@ while True:
 					'icon_code': cur_weather_icon_code
 				}
 
-				weather_refresh = time.monotonic()
-
 		except RuntimeError as e:
-			print(f'An error occured with the weather! Retrying! {e}')
+			print(f'An error occured with the weather! Try again later! {e}')
 			continue
+
+		weather_refresh = time.monotonic()
 
 	# --- Metro Update --- 
 	# Only get the metro trains every metro_refresh_length and on startup
@@ -106,11 +106,11 @@ while True:
 						'icon_code': metro_response[1]['Line']
 					}
 
-				metro_refresh = time.monotonic()
-
 		except RuntimeError as e:
-			print(f'An error occured with the metro! Retrying! {e}')
+			print(f'An error occured with the metro! Try again later! {e}')
 			continue
+
+		metro_refresh = time.monotonic()
 
 	# --- Message Update ---
 	# Go through the message stack using the stack tracker, if we're gone to far, reset

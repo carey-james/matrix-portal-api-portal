@@ -107,25 +107,7 @@ class Graphics(displayio.Group):
 			self.display.show(self.sleep_splash)
 		else: self.display.show(self.root_group)
 
-	# # Used to set the weather icon
-	# # Use weather_icon_name to update the current icon name,
-	# # based on the icon name returned by openweathermap
-	# # Format from openweathermap is 2 numbers followed by 'd' or 'n'
-	# def set_weather_icon(self, weather_icon_name):
-	# 	print(f'Setting weather icon to... {weather_icon_name}')
-	# 	if self._weather_icon_group:
-	# 		self._weather_icon_group.pop()
-	# 	if weather_icon_name is not None:
-	# 		column = 0
-	# 		if weather_icon_name[2] == 'n':
-	# 			column = 1
-	# 		for index, icon in enumerate(config['weather_icon_map']):
-	# 			# Index becomes row
-	# 			if icon == weather_icon_name[0:2]:
-	# 				self._weather_icon_sprite[0] = (index * 2) + column
-	# 				self._weather_icon_group.append(self._weather_icon_sprite)
-					# break
-
+	# Used to set the current message for display, based on the message and icon provided		
 	def display_message(self, message_ln_1, message_ln_2, icon_kind, icon_code):
 		self.message_text_1.text = message_ln_1
 		self.message_text_2.text = message_ln_2
