@@ -2,7 +2,9 @@ secrets = {
 	'ssid': '',
 	'password': '',
 	'openweather_token': '',
-	'aqi_sensor': '',
+	'lat': '',
+	'lon': '',
 	'aio_username' : '',
-    'aio_key' : ''
+    'aio_key' : '',
+    'metro_key':''
 }
