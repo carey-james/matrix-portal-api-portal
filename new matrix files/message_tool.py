@@ -13,3 +13,8 @@ def middle_pad(left_text, right_text):
 	else:
 		full_text = message_tool(f'{left_text} {right_text}')
 	return full_text
+
+def metro_no_psngr_check(text):
+	if text in ('No Passenger', 'NoPssenger', 'ssenger'):
+		text = 'No Psngr'
+	return text

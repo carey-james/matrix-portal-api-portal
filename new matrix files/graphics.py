@@ -135,7 +135,10 @@ class Graphics(displayio.Group):
 			if self._icon_group:
 				self._icon_group.pop()
 			if icon_code is not None:
-				self._metro_icon_sprite[0] = config['metro_icon_map'][icon_code]
+				if icon_code in config['metro_icon_map']:
+					self._metro_icon_sprite[0] = config['metro_icon_map'][icon_code]
+				else:
+					self._metro_icon_sprite[0] = config['metro_icon_map']['PR']
 				self._icon_group.append(self._metro_icon_sprite)
 
 		self.display.show(self.root_group)

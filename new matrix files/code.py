@@ -6,7 +6,7 @@ from adafruit_matrixportal.matrix import Matrix
 
 import graphics
 from time_tool import time_tool, sleep_time_tool
-from message_tool import message_tool, middle_pad
+from message_tool import message_tool, middle_pad, metro_no_psngr_check
 
 from secrets import secrets
 from config import config
@@ -110,8 +110,8 @@ while True:
 					print(metro_response)
 					# Add Messages for the top two trains
 					message_stack[f'{stat}'] = {
-						'message_ln_1': middle_pad(metro_response[0]['Destination'], metro_response[0]['Min']),
-						'message_ln_2': middle_pad(metro_response[1]['Destination'], metro_response[1]['Min']),
+						'message_ln_1': middle_pad(metro_no_psngr_check(metro_response[0]['Destination']), metro_response[0]['Min']),
+						'message_ln_2': middle_pad(metro_no_psngr_check(metro_response[1]['Destination']), metro_response[1]['Min']),
 						'icon_kind':'metro',
 						'icon_code': metro_response[0]['Line']
 					}
