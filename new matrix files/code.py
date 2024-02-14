@@ -6,7 +6,7 @@ from adafruit_matrixportal.matrix import Matrix
 
 import graphics
 from time_tool import time_tool, sleep_time_tool
-from message_tool import message_tool
+from message_tool import message_tool, middle_pad
 
 from secrets import secrets
 from config import config
@@ -50,9 +50,14 @@ while True:
 	if (not localtime_refresh) or ((time.monotonic() - localtime_refresh) > config['time_refresh_length_sec']):
 		try:
 			network.get_local_time()
-			localtime_refresh = time.monotonic()		
+			localtime_refresh = time.monotonic()
+
 		except RuntimeError as e:
 			print(f'An error occured with the time! Retrying! {e}')
+			continue
+
+		except:
+			print('Something else went wrong with the Time request...')
 			continue
 	# Use time_tool to update the time, 
 	# and sleep_time_tool to see if we should be sleeping
@@ -76,15 +81,20 @@ while True:
 					'icon_code': cur_weather_icon_code
 				}
 				# Cur Temp
-				message_stack['cur_temp'] = {
+				temp_temp = message_tool(weather_response['main']['temp']).split('.')[0]
+				message_stack['weather_cur_temp'] = {
 					'message_ln_1':'It\'s around', 
-					'message_ln_2': f'{message_tool(weather_response['main']['temp'])}°F',
+					'message_ln_2': f'{temp_temp}°F',
 					'icon_kind':'weather',
 					'icon_code': cur_weather_icon_code
 				}
 
 		except RuntimeError as e:
 			print(f'An error occured with the weather! Try again later! {e}')
+			continue
+
+		except:
+			print('Something else went wrong with the Weather request...')
 			continue
 
 		weather_refresh = time.monotonic()
@@ -100,14 +110,18 @@ while True:
 					print(metro_response)
 					# Add Messages for the top two trains
 					message_stack[f'{stat}'] = {
-						'message_ln_1': message_tool(f'{metro_response[0]['Destination']} {metro_response[0]['Min']}'), 
-						'message_ln_2': message_tool(f'{metro_response[1]['Destination']} {metro_response[1]['Min']}'),
+						'message_ln_1': middle_pad(metro_response[0]['Destination'], metro_response[0]['Min']),
+						'message_ln_2': middle_pad(metro_response[1]['Destination'], metro_response[1]['Min']),
 						'icon_kind':'metro',
-						'icon_code': metro_response[1]['Line']
+						'icon_code': metro_response[0]['Line']
 					}
 
 		except RuntimeError as e:
 			print(f'An error occured with the metro! Try again later! {e}')
+			continue
+
+		except:
+			print('Something else went wrong with the Metro request...')
 			continue
 
 		metro_refresh = time.monotonic()
