@@ -91,11 +91,11 @@ while True:
 
 		except RuntimeError as e:
 			print(f'An error occured with the weather! Try again later! {e}')
-			continue
+			pass
 
 		except:
 			print('Something else went wrong with the Weather request...')
-			continue
+			pass
 
 		weather_refresh = time.monotonic()
 
@@ -118,11 +118,11 @@ while True:
 
 		except RuntimeError as e:
 			print(f'An error occured with the metro! Try again later! {e}')
-			continue
+			pass
 
 		except:
 			print('Something else went wrong with the Metro request...')
-			continue
+			pass
 
 		metro_refresh = time.monotonic()
 
