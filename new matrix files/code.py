@@ -21,6 +21,13 @@ gfx = graphics.Graphics(matrix.display)
 # Network def
 network = Network(status_neopixel=board.NEOPIXEL, debug=True)
 
+# --- Tokens Setup ---
+# Setups for APIs which require tokens to be gotten/sent
+# Spotify
+spotify_token = ''
+spotify_token_headers = {}
+spotify_token_refresh_time = None
+
 # --- Message Stack Setup ---
 # Message format:
 # key = message type
@@ -38,10 +45,13 @@ message_stack = {}
 stack_index = 0
 
 # --- Refresh Setup ---
+# These refresh vars show the last time that api was refreshed
 localtime_refresh = None
 weather_refresh = None
 metro_refresh = None
 message_refresh = None
+spotify_refresh = None
+spotify_token_refresh = None
 
 # --- Runner ---
 while True:
@@ -125,6 +135,61 @@ while True:
 			pass
 
 		metro_refresh = time.monotonic()
+
+	# --- Spotify Token Update ---
+	# Get the token from Spotify that will allow us to request data
+	if (not spotify_token_refresh) or ((time.monotonic() - spotify_token_refresh) > spotify_token_refresh_time):
+		try:
+			spotify_token_response = network.fetch_data(config['spotify_token_source'], headers={'grant_type':'client_credentials', 'client_id': secrets['spotify_client_id'], 'client_secret': secrets['spotify_client_secret']}, json_path=([]))
+			spotify_token = spotify_token_response['access_token']
+			spotify_token_headers = {'Authorization': f'Bearer {spotify_token}'}
+			spotify_token_refresh_time = spotify_token_response['expires in']
+		
+		except RuntimeError as e:
+			print(f'An error occured with the Spotify token! Try again later! {e}')
+			pass
+		
+		except:
+			print('Something else went wrong with the Spotify token request...')
+			pass
+
+		spotify_token_refresh = time.monotonic()
+
+	# --- Spotify Update ---
+	# Update the Spotify playing data
+	if (not spotify_refresh) or ((time.monotonic() - spotify_refresh) > config['spotify_refresh_length_sec']):
+		try:
+			spotify_playing_response = network.fetch_data(config['spotify_playing_source'], headers=spotify_token_headers, json_path=([]))
+			if spotify_playing_response['currently_playing_type'] == 'track':
+				# If it's a song, add a message for it in the format:
+				# line 1: Song Name
+				# line 2: Artist Name
+				message_stack[f'{'spotify'}'] = {
+					'message_ln_1': message_tool(spotify_playing_response['item']['name']),
+					'message_ln_2': message_tool(spotify_playing_response['item']['artists'][0]['name']),
+					'icon_kind':'spotify',
+					'icon_code': ''
+				}
+			elif spotify_playing_response['currently_playing_type'] == 'episode':
+				# If it's an episode, add a message for it in the format:
+				# line 1: Episode Name
+				# line 2: Show Name
+				message_stack[f'{'spotify'}'] = {
+					'message_ln_1': message_tool(spotify_playing_response['item']['name']),
+					'message_ln_2': message_tool(spotify_playing_response['item']['show']['name']),
+					'icon_kind':'spotify',
+					'icon_code': ''
+				}
+			else:
+				del message_stack['spotify']
+
+		except RuntimeError as e:
+			print(f'An error occured with Spotify! Try again later! {e}')
+			pass
+		
+		except:
+			print('Something else went wrong with the Spotify request...')
+			pass
 
 	# --- Message Update ---
 	# Go through the message stack using the stack tracker, if we're gone to far, reset
