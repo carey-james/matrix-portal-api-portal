@@ -168,7 +168,7 @@ while True:
 					'message_ln_1': message_tool(spotify_playing_response['item']['name']),
 					'message_ln_2': message_tool(spotify_playing_response['item']['artists'][0]['name']),
 					'icon_kind':'spotify',
-					'icon_code': ''
+					'icon_code': 'song'
 				}
 			elif spotify_playing_response['currently_playing_type'] == 'episode':
 				# If it's an episode, add a message for it in the format:
@@ -178,7 +178,7 @@ while True:
 					'message_ln_1': message_tool(spotify_playing_response['item']['name']),
 					'message_ln_2': message_tool(spotify_playing_response['item']['show']['name']),
 					'icon_kind':'spotify',
-					'icon_code': ''
+					'icon_code': 'pod'
 				}
 			else:
 				del message_stack['spotify']
