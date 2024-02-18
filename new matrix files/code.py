@@ -26,7 +26,7 @@ network = Network(status_neopixel=board.NEOPIXEL, debug=True)
 # Spotify
 spotify_token = ''
 spotify_token_headers = {}
-spotify_token_refresh_time = None
+spotify_token_refresh_time = 0
 
 # --- Message Stack Setup ---
 # Message format:
@@ -190,6 +190,8 @@ while True:
 		except:
 			print('Something else went wrong with the Spotify request...')
 			pass
+
+		spotify_token = time.monotonic()
 
 	# --- Message Update ---
 	# Go through the message stack using the stack tracker, if we're gone to far, reset

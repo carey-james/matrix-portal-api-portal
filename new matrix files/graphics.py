@@ -68,6 +68,15 @@ class Graphics(displayio.Group):
 			tile_height=config['metro_icon_height']
 			)
 
+		# Load the spotify icons sprite sheet
+		spotify_icons = displayio.OnDiskBitmap(cwd + config['spotify_icon_path'])
+		self._spotify_icon_sprite = displayio.TileGrid(
+			spotify_icons,
+			pixel_shader=spotify_icons.pixel_shader,
+			tile_width=config['spotify_icon_width'],
+			tile_height=config['spotify_icon_height']
+			)
+
 		# Setup the fonts
 		self.small_font = bitmap_font.load_font(cwd + config['small_font_path'])
 		self.medium_font = bitmap_font.load_font(cwd + config['medium_font_path'])
@@ -140,5 +149,12 @@ class Graphics(displayio.Group):
 				else:
 					self._metro_icon_sprite[0] = config['metro_icon_map']['PR']
 				self._icon_group.append(self._metro_icon_sprite)
+
+		elif icon_kind == 'spotify':
+			if self._icon_group:
+				self._icon_group.pop()
+			if icon_code is not None:
+				self._spotify_icon_sprite[0] = 0
+				self._icon_group.append(self._spotify_icon_sprite)
 
 		self.display.show(self.root_group)

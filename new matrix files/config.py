@@ -32,6 +32,8 @@ config = {
 	'metro_icon_map':{'RD':0, 'OR':1, 'BL':2, 'GR':3, 'YL':4, 'SV':5, 'PR':6},
 	'spotify_token_source':'https://accounts.spotify.com/api/token',
 	'spotify_playing_source':'https://api.spotify.com/v1/me/player/currently-playing',
+	'spotify_icon_path':'/icons/spotify-icon.bmp',
+	'spotify_icon_width':16,
+	'spotify_icon_height':16,
 	'spotify_refresh_length_sec':10,
-
 }
