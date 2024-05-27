@@ -38,6 +38,7 @@ message_stack = {}
 stack_index = 0
 
 # --- Refresh Setup ---
+board_refresh = time.monotonic()
 localtime_refresh = None
 weather_refresh = None
 metro_refresh = None
@@ -45,7 +46,17 @@ message_refresh = None
 
 # --- Runner ---
 while True:
-	# --- Time Update ---
+	# --- Board Refesh ---
+	# Refresh the board to prevent bugs and keep things fresh! Default in config is 12 hours.
+	if ((time.monotonic() - board_refresh) > config['board_reset_time_sec']):
+		try:
+			print('Resetting the board!')
+			microcontroller.reset()
+
+		except:
+			print('Unable to reload the board using Microcontroller Reset!')
+
+ 	# --- Time Update ---
 	# Only get the time from internet based on time_refresh_length and on startup
 	if (not localtime_refresh) or ((time.monotonic() - localtime_refresh) > config['time_refresh_length_sec']):
 		try:

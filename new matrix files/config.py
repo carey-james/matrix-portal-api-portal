@@ -1,4 +1,5 @@
 config = {
+	'board_reset_time_sec':43200,
 	'message_refresh_length_sec':10,
 	'am_pm':True,
 	'time_O':True,
@@ -30,5 +31,4 @@ config = {
 	'metro_icon_width':16,
 	'metro_icon_height':16,
 	'metro_icon_map':{'RD':0, 'OR':1, 'BL':2, 'GR':3, 'YL':4, 'SV':5, 'PR':6},
-
 }
