@@ -31,4 +31,8 @@ config = {
 	'metro_icon_width':16,
 	'metro_icon_height':16,
 	'metro_icon_map':{'RD':0, 'OR':1, 'BL':2, 'GR':3, 'YL':4, 'SV':5, 'PR':6},
+	'holiday_icon_spritesheet_path':'icons/holiday-icons.bmp',
+	'holiday_icon_width':16,
+	'holiday_icon_height':16,
+	'holiday_icon_map':{'New Years Day':0,'MLK Jr Day':1,'Lunar New Year':2,'Groundhog Day':3,'Lincolns Birthday':4,'Valentines Day':5,'Presidents Day':6,'Shrove Tuesday':7,'Ash Wednesday':8,'Daylight Saving':9,'Ides of March':10,'St. Patricks Day':11,'April Fools Day':12,'Good Friday':13,'Easter':14,'Earth Day':15,'May Day':16,'Cinco de Mayo':17,'Mothers Day':18,'Memorial Day':19,'Pentecost':20,'Flag Day':21,'Fathers Day':22,'Juneteenth':23,'Canada Day':24,'4th of July':25,'Labor Day':26,'Rosh Hashanah':27,'Yom Kippur':28,'Indigenous Peoples Day':29,'Halloween':30,'Daylight Saving':31,'Election Day':32,'Veterans Day':33,'Thanksgiving':34,'Black Friday':35,'Cyber Monday':36,'Christmas': 37,'New Years Eve':38}
 }
