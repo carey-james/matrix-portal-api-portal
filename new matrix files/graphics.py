@@ -68,12 +68,21 @@ class Graphics(displayio.Group):
 			tile_height=config['metro_icon_height']
 			)
 
+		# Load the holiday icons sprite sheet
+		holiday_icons = displayio.OnDiskBitmap(cwd + config['holiday_icon_spritesheet_path'])
+		self._holiday_icon_sprite = displayio.TileGrid(
+			holiday_icons,
+			pixel_shader=metro_icons.pixel_shader,
+			tile_width=config['holiday_icon_width'],
+			tile_height=config['holiday_icon_height']
+			)
+
 		# Setup the fonts
 		self.small_font = bitmap_font.load_font(cwd + config['small_font_path'])
 		self.medium_font = bitmap_font.load_font(cwd + config['medium_font_path'])
 		self.creep_font = bitmap_font.load_font(cwd + config['creep_font_path'])
 		self.creep2_font = bitmap_font.load_font(cwd + config['creep2_font_path'])
-		glyphs = b'0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ-,.:… '
+		glyphs = b"0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ-,.:… '"
 		self.small_font.load_glyphs(glyphs)
 		self.medium_font.load_glyphs(glyphs)
 		self.creep_font.load_glyphs(glyphs)
@@ -140,5 +149,12 @@ class Graphics(displayio.Group):
 				else:
 					self._metro_icon_sprite[0] = config['metro_icon_map']['PR']
 				self._icon_group.append(self._metro_icon_sprite)
+
+		elif icon_kind == 'holiday':
+			if self._icon_group:
+				self._icon_group.pop()
+			if icon_code is not None:
+				self._holiday_icon_sprite[0] = icon_code
+				self._icon_group.append(self._holiday_icon_sprite)
 
 		self.display.show(self.root_group)

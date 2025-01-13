@@ -31,4 +31,7 @@ config = {
 	'metro_icon_width':16,
 	'metro_icon_height':16,
 	'metro_icon_map':{'RD':0, 'OR':1, 'BL':2, 'GR':3, 'YL':4, 'SV':5, 'PR':6},
+	'holiday_icon_spritesheet_path':'/icons/holiday-icons.bmp',
+	'holiday_icon_width':16,
+	'holiday_icon_height':16
 }

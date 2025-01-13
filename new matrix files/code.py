@@ -8,6 +8,8 @@ import graphics
 from time_tool import time_tool, sleep_time_tool
 from message_tool import message_tool, middle_pad, metro_no_psngr_check
 
+from holidays import holidays
+
 from secrets import secrets
 from config import config
 
@@ -40,6 +42,7 @@ stack_index = 0
 # --- Refresh Setup ---
 board_refresh = time.monotonic()
 localtime_refresh = None
+holiday_refresh = None
 weather_refresh = None
 metro_refresh = None
 message_refresh = None
@@ -73,6 +76,31 @@ while True:
 	# Use time_tool to update the time, 
 	# and sleep_time_tool to see if we should be sleeping
 	gfx.update_time(time_tool(time.localtime()), sleep_time_tool(time.localtime()))
+
+	# --- Holiday Update ---
+	# Only update the Holiday once a day
+	if (not holiday_refresh) or (holiday_refresh != time.localtime().tm_mday):
+		print(f'{time.localtime()}')
+		try:	
+			t_struct = time.localtime()
+			holiday_refresh = t_struct.tm_mday
+			if holidays[str(t_struct.tm_year)][str(t_struct.tm_mon)][str(t_struct.tm_mday)]:
+				message_stack['holiday'] = {
+					'message_ln_1': holidays[str(t_struct.tm_year)][str(t_struct.tm_mon)][str(t_struct.tm_mday)][0],
+					'message_ln_2': holidays[str(t_struct.tm_year)][str(t_struct.tm_mon)][str(t_struct.tm_mday)][1],
+					'icon_kind': 'holiday',
+					'icon_code': holidays[str(t_struct.tm_year)][str(t_struct.tm_mon)][str(t_struct.tm_mday)][2]
+				}
+			else:
+				message_stack.pop('holiday', None)
+
+		except RuntimeError as e:
+			print(f'An error occured with the holidays! Try again later! {e}')
+			pass
+
+		except:
+			print('Something went wrong with the holidays...')
+			pass
 
 	# --- Weather Update --- 
 	# Only get the weather every weather_refresh_length and on startup
